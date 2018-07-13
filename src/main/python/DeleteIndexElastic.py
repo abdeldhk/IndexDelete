@@ -23,9 +23,17 @@ port = int(sys.argv[3])
 
 with open(sys.argv[1]) as cvsfile:
 	reader = csv.DictReader(csvfile)
-	for row in reader
+	for row in reader:
+		exist = True
 		index = setIndex(row['name'],row['days'],row['format'])
-		deleteIndex(index,host,port)
+		while exist :
+			deleteIndex(index,host,port)
+			days = int(row[days])+1
+			index = setIndex(row['name'],days,row['format'])
+			if not es.indices.exists(index=index):
+				exist = False
+
+				
 
 #for line in file:
 #      	name,days,f = line.split(",")
